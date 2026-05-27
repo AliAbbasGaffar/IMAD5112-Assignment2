@@ -1,0 +1,39 @@
+# GitHub Actions workflow for IMAD5112 Assignment 2
+# This automatically builds and tests the Android app every time code is pushed
+
+name: Android CI Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Download the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Java 17 (required for modern Android builds)
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      # Step 3: Give Gradle permission to run
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # Step 4: Build the project
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      # Step 5: Run unit tests
+      - name: Run Unit Tests
+        run: ./gradlew test
