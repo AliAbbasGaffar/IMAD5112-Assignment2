@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Primary brand colour - purple -->
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <!-- Background colour - very light purple tint -->
+    <color name="colorBackground">#F5F0FF</color>
+
+    <!-- Green for Hack (correct/true) -->
+    <color name="colorHack">#2E7D32</color>
+
+    <!-- Red for Myth (false) -->
+    <color name="colorMyth">#C62828</color>
+
+    <!-- Text colours -->
+    <color name="colorText">#212121</color>
+    <color name="colorSubtext">#757575</color>
+
+    <!-- White and button colours -->
+    <color name="white">#FFFFFF</color>
+    <color name="colorButtonOutline">#E8DEF8</color>
 </resources>
