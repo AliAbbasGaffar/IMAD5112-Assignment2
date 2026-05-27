@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 
 /**
  * ReviewActivity - The Review Screen.
@@ -43,7 +44,8 @@ class ReviewActivity : AppCompatActivity() {
             val card = CardView(this).apply {
                 radius = 16f
                 cardElevation = 4f
-                setCardBackgroundColor(getColor(android.R.color.white))
+                // Updated to ContextCompat for safety
+                setCardBackgroundColor(ContextCompat.getColor(context, android.R.color.white))
                 val params = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
@@ -62,12 +64,17 @@ class ReviewActivity : AppCompatActivity() {
             val tvStatement = TextView(this).apply {
                 text = "${i + 1}. ${question.statement}"
                 textSize = 16f
-                setTextColor(getColor(R.color.colorText))
+                // Updated to ContextCompat for safety
+                setTextColor(ContextCompat.getColor(context, R.color.colorText))
                 setPadding(0, 0, 0, 12)
             }
 
             // --- Answer label (green for Hack, red for Myth) ---
-            val answerColor = if (question.isHack) getColor(R.color.colorHack) else getColor(R.color.colorMyth)
+            val answerColor = if (question.isHack) {
+                ContextCompat.getColor(this@ReviewActivity, R.color.colorHack)
+            } else {
+                ContextCompat.getColor(this@ReviewActivity, R.color.colorMyth)
+            }
             val answerText = if (question.isHack) "✅ REAL HACK" else "❌ URBAN MYTH"
 
             val tvAnswer = TextView(this).apply {
@@ -79,11 +86,15 @@ class ReviewActivity : AppCompatActivity() {
             }
 
             // --- Explanation text ---
-            val tvExplanation = TextView(this).apply {
+            var tvExplanation = TextView(this).apply {
                 text = question.explanation
                 textSize = 14f
-                setTextColor(getColor(R.color.colorSubtext))
-                lineSpacingExtra = 4f
+                // Updated to ContextCompat for safety
+                setTextColor(ContextCompat.getColor(context, R.color.colorSubtext))
+
+                // FIX: lineSpacingExtra cannot be assigned directly in Kotlin.
+                // We use setLineSpacing(add, mult) instead.
+                setLineSpacing(4f, 1f)
             }
 
             // --- Assemble the card ---
